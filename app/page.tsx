@@ -1,17 +1,19 @@
 "use client";
 
-import { useState, useEffect, Key } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   Card,
   CardContent,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import dynamic from 'next/dynamic';
 
 export default function Home() {
   type ResultObject = { [key: string]: { [key: string]: { [key: string]: number } | null } | null };
   const [result, setResult] = useState<ResultObject>({});
+  const [selectedWall, setSelectedWall] = useState('all');
 
   const gradeSettings: any = {
     g8: { achieveColor: 'bg-purple-100', color: 'bg-purple-600' },
@@ -72,6 +74,13 @@ export default function Home() {
     },
   }
 
+  const wallLabel: any = {
+    w90: '90°',
+    w115: '115°',
+    w125: '125°',
+    w170: '170°'
+  }
+
   useEffect(() => {
     const resultData = localStorage.getItem('result-data');
     if (resultData) {
@@ -86,7 +95,7 @@ export default function Home() {
     }
   }, [result]);
 
-  const handleChange = (w: string, g: string, r: string, resultTo: boolean) => {
+  const toggleCompleted = (w: string, g: string, r: string, resultTo: boolean) => {
     setResult(prevResult => {
       const newResult = { ...prevResult };
       newResult[w] = newResult[w] ?? {};
@@ -96,39 +105,46 @@ export default function Home() {
     });
   };
 
+  const changeWallSelect = (w: string) => {
+    setSelectedWall(w)
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-2">
-       <Tabs defaultValue="all" className="w-[400px]">
+      <Tabs defaultValue="all" className="w-[400px]">
         <TabsList>
-          <TabsTrigger value="all">*</TabsTrigger>
-          <TabsTrigger value="w-90">90°</TabsTrigger>
-          <TabsTrigger value="w-115">115°</TabsTrigger>
-          <TabsTrigger value="w-125">125°</TabsTrigger>
-          <TabsTrigger value="w-170">170°</TabsTrigger>
+          <TabsTrigger value="all" onClick={() => changeWallSelect("all")}>*</TabsTrigger>
+          <TabsTrigger value="w90" onClick={() => changeWallSelect("w90")}>90°</TabsTrigger>
+          <TabsTrigger value="w115" onClick={() => changeWallSelect("w115")}>115°</TabsTrigger>
+          <TabsTrigger value="w125" onClick={() => changeWallSelect("w125")}>125°</TabsTrigger>
+          <TabsTrigger value="w170" onClick={() => changeWallSelect("w170")}>170°</TabsTrigger>
         </TabsList>
-        <TabsContent value="all">
+        <TabsContent value={selectedWall}>
           {Object.keys(routeSettings).map((w, i) => (
-            Object.keys(routeSettings[w]).map((g, j) => (
-              <Card className="m-1" key={`${i}-${j}`}>
-                <CardContent className="p-3">
-                  {routeSettings[w][g].map((r: string, k: number) => (
-                    <Button
-                      className={`ml-1 ${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
-                      key={k}
-                      onClick={() => handleChange(w, g, r, !result[w]?.[g]?.[r])}
-                    >
-                      {r}
-                    </Button>
-                  ))}
-                </CardContent>
+            selectedWall === 'all' || selectedWall === w ? (
+              <Card className="m-1" key={i}>
+                {selectedWall === 'all' && (
+                  <CardHeader className="p-0 pl-4 pt-3">
+                    <CardTitle className="text-base">{wallLabel[w]}</CardTitle>
+                  </CardHeader>
+                )}
+                {Object.keys(routeSettings[w]).map((g, j) => (
+                  <CardContent className="p-3" key={`${i}-${j}`}>
+                    {routeSettings[w][g].map((r: string, k: number) => (
+                      <Button
+                        className={`ml-1 ${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
+                        key={k}
+                        onClick={() => toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}
+                      >
+                        {r}
+                      </Button>
+                    ))}
+                  </CardContent>
+                ))}
               </Card>
-            ))
+            ) : null
           ))}
         </TabsContent>
-        <TabsContent value="w-90">Make changes to your account here.</TabsContent>
-        <TabsContent value="w-115">Change your password here.</TabsContent>
-        <TabsContent value="w-125">Change your password here.</TabsContent>
-        <TabsContent value="w-170">Change your password here.</TabsContent>
       </Tabs>
     </main>
   );
