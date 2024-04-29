@@ -15,6 +15,8 @@ export default function Copy() {
   const [result, setResult] = useState<ResultObject>({});
   const [resultArr, setresultArr] = useState<Array<string>>([]);
 
+  const basePath = process.env.NODE_ENV === 'production' ? '/marchocias' : ''
+
   const queryStringList: any = {
     w90: 'a',
     w115: 'b',
@@ -63,7 +65,7 @@ export default function Copy() {
           )}
         </CardContent>
         <CardFooter className='flex justify-center'>
-          <CardDescription><a href="/">もどる</a></CardDescription>
+          <CardDescription><a href={`${basePath}/`}>もどる</a></CardDescription>
         </CardFooter>
       </Card>
     </main>

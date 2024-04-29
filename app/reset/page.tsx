@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card"
 
 export default function Reset() {
+  const basePath = process.env.NODE_ENV === 'production' ? '/marchocias' : ''
 
   const resetData = () => {
     if (confirm('データをリセットします。よろしいですか？')) {
@@ -27,7 +28,7 @@ export default function Reset() {
           <Button variant="outline" onClick={() => resetData()}>リセット</Button>
         </CardContent>
         <CardFooter className='flex justify-center'>
-          <CardDescription><a href="/">もどる</a></CardDescription>
+          <CardDescription><a href={`${basePath}/`}>もどる</a></CardDescription>
         </CardFooter>
       </Card>
     </main>

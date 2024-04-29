@@ -8,6 +8,8 @@ export default function Inport() {
   type ResultObject = { [key: string]: { [key: string]: { [key: string]: number } } };
   const searchParams = useSearchParams();
 
+  const basePath = process.env.NODE_ENV === 'production' ? '/marchocias' : ''
+
   useEffect(() => {
     const queryWallList: any = {
       a: 'w90',
@@ -54,7 +56,7 @@ export default function Inport() {
 
     localStorage.setItem('result-data', JSON.stringify(parsedResultData));
 
-    permanentRedirect('/')
+    permanentRedirect(`${basePath}/`)
   }, [searchParams]);
 
   return (
@@ -64,7 +66,7 @@ export default function Inport() {
           <CardDescription className='text-center'>データを保存しています...</CardDescription>
         </CardHeader>
         <CardFooter className='flex justify-center'>
-          <CardDescription><a href="/">もどる</a></CardDescription>
+          <CardDescription><a href={`${basePath}/`}>もどる</a></CardDescription>
         </CardFooter>
       </Card>
     </main>
