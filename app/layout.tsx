@@ -16,9 +16,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <Suspense>
-        <body className={inter.className}>{children}</body>
-      </Suspense>
+      <body className={inter.className}>
+        <Suspense>
+          {children}
+        </Suspense>
+      </body>
     </html>
   );
 }

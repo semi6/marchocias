@@ -55,7 +55,7 @@ export default function Copy() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-2">
-      <Card className="w-[400px]">
+      <Card className="w-[380px]">
         <CardHeader>
           <CardDescription className='text-center'>QRコードで別の端末にコピーできます</CardDescription>
         </CardHeader>

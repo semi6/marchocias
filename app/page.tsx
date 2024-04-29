@@ -108,7 +108,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-2">
-      <Tabs defaultValue="all" className="w-[400px]">
+      <Tabs defaultValue="all" className="w-[380px]">
         <div className="flex m-1">
           <TabsList>
             <TabsTrigger value="all" onClick={() => changeWallSelect("all")}>*</TabsTrigger>
@@ -140,10 +140,10 @@ export default function Home() {
                   </CardHeader>
                 )}
                 {Object.keys(routeSettings[w]).map((g, j) => (
-                  <CardContent className="p-3" key={`${i}-${j}`}>
+                  <CardContent className="p-2" key={`${i}-${j}`}>
                     {routeSettings[w][g].map((r: string, k: number) => (
                       <Button
-                        className={`ml-1 ${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
+                        className={`ml-1 px-3.5 ${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
                         key={k}
                         onClick={() => toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}
                       >

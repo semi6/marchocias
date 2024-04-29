@@ -16,7 +16,7 @@ export default function Access() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-2">
-      <Card className="w-[400px]">
+      <Card className="w-[380px]">
         <CardHeader>
           <CardTitle className='text-center'>課題表</CardTitle>
           <CardDescription className='text-center'>QRコードでアクセス</CardDescription>
