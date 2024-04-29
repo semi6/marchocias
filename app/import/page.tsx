@@ -56,7 +56,7 @@ export default function Inport() {
 
     localStorage.setItem('result-data', JSON.stringify(parsedResultData));
 
-    permanentRedirect(`${basePath}/`)
+    permanentRedirect('/')
   }, [searchParams]);
 
   return (
