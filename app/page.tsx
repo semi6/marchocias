@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   Card,
@@ -92,7 +92,15 @@ export default function Home() {
     }
   }, [result]);
 
+  const processing = useRef(false)
+
   const toggleCompleted = (w: string, g: string, r: string, resultTo: boolean) => {
+    if (processing.current) {
+      return
+    }
+
+    processing.current = true
+
     setResult(prevResult => {
       const newResult = { ...prevResult };
       newResult[w] = newResult[w] ?? {};
@@ -100,6 +108,8 @@ export default function Home() {
       newResult[w]![g]![r] = resultTo ? 1 : 0;
       return newResult;
     });
+
+    processing.current = false
   };
 
   const changeWallSelect = (w: string) => {
