@@ -22,6 +22,8 @@ export default function Home() {
   const [result, setResult] = useState<ResultObject>({});
   const [selectedWall, setSelectedWall] = useState('all');
 
+  const basePath = process.env.NODE_ENV === 'production' ? '/marchocias' : ''
+
   const gradeSettings: any = {
     g8: { achieveColor: 'bg-purple-100', color: 'bg-purple-600' },
     g7: { achieveColor: 'bg-yellow-100', color: 'bg-yellow-400' },
@@ -121,8 +123,8 @@ export default function Home() {
                 <Bars3Icon className="size-7"/>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem><a href="/copy">Copy</a></DropdownMenuItem>
-                <DropdownMenuItem><a href="/reset">Reset</a></DropdownMenuItem>
+                <DropdownMenuItem><a href={`${basePath}/copy`}>Copy</a></DropdownMenuItem>
+                <DropdownMenuItem><a href={`${basePath}/reset`}>Reset</a></DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
