@@ -61,7 +61,7 @@ export default function Inport() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-2">
-      <Card className="w-[380px]">
+      <Card className="w-[370px]">
         <CardHeader>
           <CardDescription className='text-center'>データを保存しています...</CardDescription>
         </CardHeader>

@@ -108,7 +108,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-2">
-      <Tabs defaultValue="all" className="w-[380px]">
+      <Tabs defaultValue="all" className="w-[370px]">
         <div className="flex m-1">
           <TabsList>
             <TabsTrigger value="all" onClick={() => changeWallSelect("all")}>*</TabsTrigger>
