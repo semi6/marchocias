@@ -109,7 +109,9 @@ export default function Home() {
       return newResult;
     });
 
-    processing.current = false
+    setTimeout(() => {
+      processing.current = false
+    }, 300)
   };
 
   const changeWallSelect = (w: string) => {
