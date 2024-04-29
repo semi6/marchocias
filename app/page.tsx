@@ -9,6 +9,13 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { Bars3Icon } from '@heroicons/react/24/solid'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export default function Home() {
   type ResultObject = { [key: string]: { [key: string]: { [key: string]: number } | null } | null };
@@ -100,20 +107,33 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-2">
       <Tabs defaultValue="all" className="w-[400px]">
-        <TabsList>
-          <TabsTrigger value="all" onClick={() => changeWallSelect("all")}>*</TabsTrigger>
-          <TabsTrigger value="w90" onClick={() => changeWallSelect("w90")}>90°</TabsTrigger>
-          <TabsTrigger value="w115" onClick={() => changeWallSelect("w115")}>115°</TabsTrigger>
-          <TabsTrigger value="w125" onClick={() => changeWallSelect("w125")}>125°</TabsTrigger>
-          <TabsTrigger value="w170" onClick={() => changeWallSelect("w170")}>170°</TabsTrigger>
-        </TabsList>
+        <div className="flex m-1">
+          <TabsList>
+            <TabsTrigger value="all" onClick={() => changeWallSelect("all")}>*</TabsTrigger>
+            <TabsTrigger value="w90" onClick={() => changeWallSelect("w90")}>90°</TabsTrigger>
+            <TabsTrigger value="w115" onClick={() => changeWallSelect("w115")}>115°</TabsTrigger>
+            <TabsTrigger value="w125" onClick={() => changeWallSelect("w125")}>125°</TabsTrigger>
+            <TabsTrigger value="w170" onClick={() => changeWallSelect("w170")}>170°</TabsTrigger>
+          </TabsList>
+          <div className="ml-auto my-0 my-auto">
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Bars3Icon className="size-7"/>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem><a href="/copy">Copy</a></DropdownMenuItem>
+                <DropdownMenuItem><a href="/reset">Reset</a></DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </div>
         <TabsContent value={selectedWall}>
           {Object.keys(routeSettings).map((w, i) => (
             selectedWall === 'all' || selectedWall === w ? (
               <Card className="m-1" key={i}>
                 {selectedWall === 'all' && (
-                  <CardHeader className="p-0 pl-4 pt-3">
-                    <CardTitle className="text-base">{wallLabel[w]}</CardTitle>
+                  <CardHeader className="p-0 pl-5 pt-3">
+                    <CardTitle className="text-sm font-normal text-gray-500">{wallLabel[w]}</CardTitle>
                   </CardHeader>
                 )}
                 {Object.keys(routeSettings[w]).map((g, j) => (
