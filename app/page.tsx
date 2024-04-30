@@ -90,7 +90,6 @@ export default function Home() {
   useEffect(() => {
     if (Object.keys(result).length !== 0) {
       localStorage.setItem('result-data', JSON.stringify(result));
-      processing.current = false
     }
   }, [result]);
 
@@ -109,6 +108,10 @@ export default function Home() {
       newResult[w]![g]![r] = resultTo ? 1 : 0;
       return newResult;
     });
+
+    setTimeout(() => {
+      processing.current = false
+    }, 300)
   };
 
   const changeWallSelect = (w: string) => {
