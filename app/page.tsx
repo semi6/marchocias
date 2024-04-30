@@ -132,7 +132,7 @@ export default function Home() {
                 <Bars3Icon className="size-7"/>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem><a href={`${basePath}/access`}>Access</a></DropdownMenuItem>
+                <DropdownMenuItem><a href={`${basePath}/about`}>About</a></DropdownMenuItem>
                 <DropdownMenuItem><a href={`${basePath}/copy`}>Copy</a></DropdownMenuItem>
                 <DropdownMenuItem><a href={`${basePath}/reset`}>Reset</a></DropdownMenuItem>
               </DropdownMenuContent>

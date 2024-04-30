@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-export default function Access() {
+export default function About() {
 
   const basePath = process.env.NODE_ENV === 'production' ? '/marchocias' : ''
 
@@ -24,6 +24,15 @@ export default function Access() {
         <CardContent className='flex justify-center'>
           <QRCodeSVG value={`https://semi6.github.io/marchocias`} size={150} />
         </CardContent>
+        <CardContent>
+          <CardDescription className='ml-10'>
+            ※データは端末に保存されます
+          </CardDescription>
+          <CardDescription className='ml-10'>
+            ※データを別の端末で見るには<a href={`${basePath}/copy`} className='underline'>こちら</a>
+          </CardDescription>
+        </CardContent>
+
         <CardFooter className='flex justify-center'>
           <CardDescription><a href={`${basePath}/`}>もどる</a></CardDescription>
         </CardFooter>
