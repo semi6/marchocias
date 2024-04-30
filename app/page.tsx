@@ -21,6 +21,7 @@ export default function Home() {
   type ResultObject = { [key: string]: { [key: string]: { [key: string]: number } | null } | null };
   const [result, setResult] = useState<ResultObject>({});
   const [selectedWall, setSelectedWall] = useState('all');
+  const processing = useRef(false)
 
   const basePath = process.env.NODE_ENV === 'production' ? '/marchocias' : ''
 
@@ -89,10 +90,10 @@ export default function Home() {
   useEffect(() => {
     if (Object.keys(result).length !== 0) {
       localStorage.setItem('result-data', JSON.stringify(result));
+      processing.current = false
     }
   }, [result]);
 
-  const processing = useRef(false)
 
   const toggleCompleted = (w: string, g: string, r: string, resultTo: boolean) => {
     if (processing.current) {
@@ -108,10 +109,6 @@ export default function Home() {
       newResult[w]![g]![r] = resultTo ? 1 : 0;
       return newResult;
     });
-
-    setTimeout(() => {
-      processing.current = false
-    }, 300)
   };
 
   const changeWallSelect = (w: string) => {
@@ -145,17 +142,15 @@ export default function Home() {
         <TabsContent value={selectedWall}>
           {Object.keys(routeSettings).map((w, i) => (
             selectedWall === 'all' || selectedWall === w ? (
-              <Card className="m-1" key={i}>
-                {selectedWall === 'all' && (
-                  <CardHeader className="p-0 pl-5 pt-3">
-                    <CardTitle className="text-sm font-normal text-gray-500">{wallLabel[w]}</CardTitle>
-                  </CardHeader>
-                )}
+              <Card className="m-1 pb-1" key={i}>
+                <CardHeader className="p-0 pl-3 pt-3">
+                  <CardTitle className="text-sm font-normal text-gray-500">{wallLabel[w]}</CardTitle>
+                </CardHeader>
                 {Object.keys(routeSettings[w]).map((g, j) => (
-                  <CardContent className="p-2" key={`${i}-${j}`}>
+                  <CardContent className="p-1.5 flex justify-between" key={`${i}-${j}`}>
                     {routeSettings[w][g].map((r: string, k: number) => (
                       <Button
-                        className={`ml-1 px-3.5 ${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
+                        className={`w-10 ${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
                         key={k}
                         onClick={() => toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}
                       >
