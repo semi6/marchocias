@@ -87,28 +87,21 @@ export default function Home() {
     }
   }, []);
 
-  useEffect(() => {
-    if (Object.keys(result).length !== 0) {
-      localStorage.setItem('result-data', JSON.stringify(result));
-    }
-  }, [result]);
-
+  // useEffect(() => {
+  //   if (Object.keys(result).length !== 0) {
+  //     localStorage.setItem('result-data', JSON.stringify(result));
+  //   }
+  // }, [result]);
 
   const toggleCompleted = (w: string, g: string, r: string, resultTo: boolean) => {
-    console.log(`*** start ${w} ${g} ${r} ${resultTo}`)
-
     setResult(prevResult => {
       const newResult = { ...prevResult };
       newResult[w] = newResult[w] ?? {};
       newResult[w]![g] = newResult[w]![g] ?? {};
       newResult[w]![g]![r] = resultTo ? 1 : 0;
 
-      console.log(`*** doing ${w} ${g} ${r} ${resultTo}`)
-
       return newResult;
     });
-
-    console.log(`*** end ${w} ${g} ${r} ${resultTo}`)
   };
 
   const changeWallSelect = (w: string) => {
