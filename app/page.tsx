@@ -106,6 +106,13 @@ export default function Home() {
       newResult[w] = newResult[w] ?? {};
       newResult[w]![g] = newResult[w]![g] ?? {};
       newResult[w]![g]![r] = resultTo ? 1 : 0;
+
+      console.log('*****************')
+      console.log(newResult[w])
+      console.log(g)
+      console.log(r)
+      console.log(resultTo)
+
       return newResult;
     });
 
