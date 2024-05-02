@@ -95,20 +95,20 @@ export default function Home() {
 
 
   const toggleCompleted = (w: string, g: string, r: string, resultTo: boolean) => {
+    console.log(`*** start ${w} ${g} ${r} ${resultTo}`)
+
     setResult(prevResult => {
       const newResult = { ...prevResult };
       newResult[w] = newResult[w] ?? {};
       newResult[w]![g] = newResult[w]![g] ?? {};
       newResult[w]![g]![r] = resultTo ? 1 : 0;
 
-      console.log('*****************')
-      console.log(newResult[w])
-      console.log(g)
-      console.log(r)
-      console.log(resultTo)
+      console.log(`*** doing ${w} ${g} ${r} ${resultTo}`)
 
       return newResult;
     });
+
+    console.log(`*** end ${w} ${g} ${r} ${resultTo}`)
   };
 
   const changeWallSelect = (w: string) => {
