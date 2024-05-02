@@ -95,12 +95,6 @@ export default function Home() {
 
 
   const toggleCompleted = (w: string, g: string, r: string, resultTo: boolean) => {
-    if (processing.current) {
-      return
-    }
-
-    processing.current = true
-
     setResult(prevResult => {
       const newResult = { ...prevResult };
       newResult[w] = newResult[w] ?? {};
@@ -115,10 +109,6 @@ export default function Home() {
 
       return newResult;
     });
-
-    setTimeout(() => {
-      processing.current = false
-    }, 300)
   };
 
   const changeWallSelect = (w: string) => {
