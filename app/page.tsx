@@ -87,11 +87,11 @@ export default function Home() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (Object.keys(result).length !== 0) {
-  //     localStorage.setItem('result-data', JSON.stringify(result));
-  //   }
-  // }, [result]);
+  useEffect(() => {
+    if (Object.keys(result).length !== 0) {
+      localStorage.setItem('result-data', JSON.stringify(result));
+    }
+  }, [result]);
 
   const toggleCompleted = (w: string, g: string, r: string, resultTo: boolean) => {
     setResult(prevResult => {
@@ -142,13 +142,14 @@ export default function Home() {
                 {Object.keys(routeSettings[w]).map((g, j) => (
                   <CardContent className="p-1.5 flex justify-between" key={`${i}-${j}`}>
                     {routeSettings[w][g].map((r: string, k: number) => (
-                      <Button
-                        className={`w-10 ${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
-                        key={k}
-                        onClick={() => toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}
-                      >
-                        {r}
-                      </Button>
+                      <div key={k}>
+                        <Button
+                          className={`w-10 ${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
+                          onClick={() => toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}
+                        >
+                          {r}
+                        </Button>
+                      </div>
                     ))}
                   </CardContent>
                 ))}
