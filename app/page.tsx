@@ -21,7 +21,6 @@ export default function Home() {
   type ResultObject = { [key: string]: { [key: string]: { [key: string]: number } | null } | null };
   const [result, setResult] = useState<ResultObject>({});
   const [selectedWall, setSelectedWall] = useState('all');
-  const processing = useRef(false)
 
   const basePath = process.env.NODE_ENV === 'production' ? '/marchocias' : ''
 
@@ -94,14 +93,15 @@ export default function Home() {
   }, [result]);
 
   const toggleCompleted = (w: string, g: string, r: string, resultTo: boolean) => {
-    setResult(prevResult => {
-      const newResult = { ...prevResult };
-      newResult[w] = newResult[w] ?? {};
-      newResult[w]![g] = newResult[w]![g] ?? {};
-      newResult[w]![g]![r] = resultTo ? 1 : 0;
+    console.log(`${w} ${g} ${r} ${resultTo}`)
+    // setResult(prevResult => {
+    //   const newResult = { ...prevResult };
+    //   newResult[w] = newResult[w] ?? {};
+    //   newResult[w]![g] = newResult[w]![g] ?? {};
+    //   newResult[w]![g]![r] = resultTo ? 1 : 0;
 
-      return newResult;
-    });
+    //   return newResult;
+    // });
   };
 
   const changeWallSelect = (w: string) => {
@@ -140,7 +140,7 @@ export default function Home() {
                   <CardTitle className="text-sm font-normal text-gray-500">{wallLabel[w]}</CardTitle>
                 </CardHeader>
                 {Object.keys(routeSettings[w]).map((g, j) => (
-                  <CardContent className="flex justify-between" key={`${i}-${j}`}>
+                  <CardContent className="p-1.5 flex justify-between" key={`${i}-${j}`}>
                     {routeSettings[w][g].map((r: string, k: number) => (
                       <div key={k}>
                         <Button
