@@ -143,7 +143,7 @@ export default function Home() {
                     {routeSettings[w][g].map((r: string, k: number) => (
                       <div key={k}>
                         <Button
-                          onTouchEnd={() => toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}
+                          onMouseDown={() => toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}
                           className={`${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
                         >
                           {r}
