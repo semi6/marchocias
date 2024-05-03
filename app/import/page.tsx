@@ -1,10 +1,18 @@
 "use client";
 
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { permanentRedirect, useSearchParams } from "next/navigation";
 import { Card, CardDescription, CardFooter, CardHeader } from '@/components/ui/card';
 
-export default function Inport() {
+export default function Import() {
+  return (
+    <Suspense>
+      <ImportPage />
+    </Suspense>
+  );
+};
+
+export const ImportPage = () => {
   type ResultObject = { [key: string]: { [key: string]: { [key: string]: number } } };
   const searchParams = useSearchParams();
 
