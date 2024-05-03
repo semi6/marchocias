@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, MouseEvent, TouchEvent } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   Card,
@@ -16,6 +16,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { isMobile } from "react-device-detect"
 
 export default function Home() {
   type ResultObject = { [key: string]: { [key: string]: { [key: string]: number } | null } | null };
@@ -143,7 +144,8 @@ export default function Home() {
                     {routeSettings[w][g].map((r: string, k: number) => (
                       <div key={k}>
                         <Button
-                          onMouseDown={() => toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}
+                          onClick={() => !isMobile && toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}
+                          onTouchEnd={() => toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}
                           className={`${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
                         >
                           {r}
