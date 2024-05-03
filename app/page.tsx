@@ -141,10 +141,9 @@ export default function Home() {
                 {Object.keys(routeSettings[w]).map((g, j) => (
                   <CardContent className="p-1.5 flex justify-between" key={`${i}-${j}`}>
                     {routeSettings[w][g].map((r: string, k: number) => (
-                      <div key={k}>
+                      <div key={k} onClick={() => toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}>
                         <Button
-                          className={`w-10 ${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
-                          onClick={() => toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}
+                          className={`${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
                         >
                           {r}
                         </Button>
