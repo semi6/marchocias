@@ -4,15 +4,7 @@ import { Suspense, useEffect } from 'react';
 import { permanentRedirect, useSearchParams } from "next/navigation";
 import { Card, CardDescription, CardFooter, CardHeader } from '@/components/ui/card';
 
-export default function Import() {
-  return (
-    <Suspense>
-      <ImportPage />
-    </Suspense>
-  );
-};
-
-export const ImportPage = () => {
+const ImportPage = () => {
   type ResultObject = { [key: string]: { [key: string]: { [key: string]: number } } };
   const searchParams = useSearchParams();
 
@@ -80,3 +72,11 @@ export const ImportPage = () => {
     </main>
   );
 }
+
+export default function Import() {
+  return (
+    <Suspense>
+      <ImportPage />
+    </Suspense>
+  );
+};
