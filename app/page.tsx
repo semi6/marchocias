@@ -94,14 +94,14 @@ export default function Home() {
 
   const toggleCompleted = (w: string, g: string, r: string, resultTo: boolean) => {
     console.log(`${w} ${g} ${r} ${resultTo}`)
-    // setResult(prevResult => {
-    //   const newResult = { ...prevResult };
-    //   newResult[w] = newResult[w] ?? {};
-    //   newResult[w]![g] = newResult[w]![g] ?? {};
-    //   newResult[w]![g]![r] = resultTo ? 1 : 0;
+    setResult(prevResult => {
+      const newResult = { ...prevResult };
+      newResult[w] = newResult[w] ?? {};
+      newResult[w]![g] = newResult[w]![g] ?? {};
+      newResult[w]![g]![r] = resultTo ? 1 : 0;
 
-    //   return newResult;
-    // });
+      return newResult;
+    });
   };
 
   const changeWallSelect = (w: string) => {
@@ -144,7 +144,7 @@ export default function Home() {
                     {routeSettings[w][g].map((r: string, k: number) => (
                       <div key={k}>
                         <Button
-                          className={`w-10 ${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
+                          // className={`w-10 ${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
                           onClick={() => toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}
                         >
                           {r}
