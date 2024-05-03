@@ -144,7 +144,7 @@ export default function Home() {
                     {routeSettings[w][g].map((r: string, k: number) => (
                       <div key={k}>
                         <Button
-                          className={`${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
+                          className={`w-9 h-9 ${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
                           onClick={() => toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}
                         >
                           {r}
