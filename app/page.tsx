@@ -92,7 +92,9 @@ export default function Home() {
     }
   }, [result]);
 
-  const toggleCompleted = (w: string, g: string, r: string, resultTo: boolean) => {
+  const toggleCompleted = (e: React.MouseEvent<HTMLElement>, w: string, g: string, r: string, resultTo: boolean) => {
+    e.preventDefault
+
     setResult(prevResult => {
       const newResult = { ...prevResult };
       newResult[w] = newResult[w] ?? {};
@@ -141,8 +143,9 @@ export default function Home() {
                 {Object.keys(routeSettings[w]).map((g, j) => (
                   <CardContent className="p-1.5 flex justify-between" key={`${i}-${j}`}>
                     {routeSettings[w][g].map((r: string, k: number) => (
-                      <div key={k} onClick={() => toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}>
+                      <div key={k}>
                         <Button
+                          onClick={(e) => toggleCompleted(e, w, g, r, !result[w]?.[g]?.[r])}
                           className={`${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
                         >
                           {r}
