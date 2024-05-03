@@ -93,7 +93,6 @@ export default function Home() {
   }, [result]);
 
   const toggleCompleted = (w: string, g: string, r: string, resultTo: boolean) => {
-    console.log(`${w} ${g} ${r} ${resultTo}`)
     setResult(prevResult => {
       const newResult = { ...prevResult };
       newResult[w] = newResult[w] ?? {};
@@ -132,7 +131,23 @@ export default function Home() {
             </DropdownMenu>
           </div>
         </div>
-        <TabsContent value={selectedWall}>
+
+        <div className="flex">
+          <Button
+            className={`w-10 ${result['w90']?.['g5']?.['A'] === 1 ? gradeSettings['g5'].achieveColor : gradeSettings['g5'].color} hover:${result['w90']?.['g5']?.['A'] === 1 ? gradeSettings['g5'].achieveColor : gradeSettings['g5'].color}`}
+            onClick={() => toggleCompleted('w90', 'g5', 'A', !result['w90']?.['g5']?.['A'])}
+          >
+            A
+          </Button>
+          <Button
+            className={`ml-1 w-10 ${result['w90']?.['g5']?.['B'] === 1 ? gradeSettings['g5'].achieveColor : gradeSettings['g5'].color} hover:${result['w90']?.['g5']?.['B'] === 1 ? gradeSettings['g5'].achieveColor : gradeSettings['g5'].color}`}
+            onClick={() => toggleCompleted('w90', 'g5', 'B', !result['w90']?.['g5']?.['B'])}
+          >
+            B
+          </Button>
+        </div>
+
+        {/* <TabsContent value={selectedWall}>
           {Object.keys(routeSettings).map((w, i) => (
             selectedWall === 'all' || selectedWall === w ? (
               <Card className="m-1 mb-3 pb-1" key={i}>
@@ -144,7 +159,7 @@ export default function Home() {
                     {routeSettings[w][g].map((r: string, k: number) => (
                       <div key={k}>
                         <Button
-                          // className={`w-10 ${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
+                          className={`w-10 ${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
                           onClick={() => toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}
                         >
                           {r}
@@ -156,7 +171,7 @@ export default function Home() {
               </Card>
             ) : null
           ))}
-        </TabsContent>
+        </TabsContent> */}
       </Tabs>
     </main>
   );
