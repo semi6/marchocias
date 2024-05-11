@@ -43,7 +43,7 @@ export default function Home() {
       g4: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
       g3: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
       g2: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
-      g1: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
+      g1: ['1', '2', 'A', 'B', 'C', 'D'],
       g0: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
     },
     w115: {
@@ -54,16 +54,16 @@ export default function Home() {
       g1: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
       g0: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
     },
-    w125: {
-      g5: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
-      g4: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
-      g3: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
-      g2: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
-      g1: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
-      g0: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
+    w140: {
+      g5: ['6', '7', 'E', 'F'],
+      g4: ['6', '7', '8', '9', 'E', 'F', 'G', 'H'],
+      g3: ['6', '7', '8', '9', 'E', 'F', 'G', 'H'],
+      g2: ['6', '7', '8', '9', 'E', 'F', 'G', 'H'],
+      g1: ['6', '7', '8', '9', 'E', 'F', 'G', 'H'],
+      g0: ['6', '7', '8', '9', 'E', 'F', 'G', 'H'],
     },
     w170: {
-      g5: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
+      g5: ['1', '2', 'A', 'B'],
       g4: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
       g3: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
       g2: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
@@ -75,7 +75,7 @@ export default function Home() {
   const wallLabel: any = {
     w90: '90°',
     w115: '115°',
-    w125: '125°',
+    w140: '140°',
     w170: '170°'
   }
 
@@ -116,7 +116,7 @@ export default function Home() {
             <TabsTrigger value="all" onClick={() => changeWallSelect("all")}>*</TabsTrigger>
             <TabsTrigger value="w90" onClick={() => changeWallSelect("w90")}>90°</TabsTrigger>
             <TabsTrigger value="w115" onClick={() => changeWallSelect("w115")}>115°</TabsTrigger>
-            <TabsTrigger value="w125" onClick={() => changeWallSelect("w125")}>125°</TabsTrigger>
+            <TabsTrigger value="w140" onClick={() => changeWallSelect("w140")}>140°</TabsTrigger>
             <TabsTrigger value="w170" onClick={() => changeWallSelect("w170")}>170°</TabsTrigger>
           </TabsList>
           <div className="ml-auto my-0 my-auto">
