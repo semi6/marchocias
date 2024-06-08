@@ -140,13 +140,13 @@ export default function Home() {
                   <CardTitle className="text-sm font-normal text-gray-500">{wallLabel[w]}</CardTitle>
                 </CardHeader>
                 {Object.keys(routeSettings[w]).map((g, j) => (
-                  <CardContent className="p-1.5 flex" key={`${i}-${j}`}>
+                  <CardContent className="p-1 flex flex-wrap gap-y-1.5" key={`${i}-${j}`}>
                     {routeSettings[w][g].map((r: string, k: number) => (
                       <Button
                         key={k}
                         onClick={() => !isMobile && toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}
                         onTouchEnd={() => toggleCompleted(w, g, r, !result[w]?.[g]?.[r])}
-                        className={`ml-0.5 ${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
+                        className={`ml-1 w-11 h-11 ${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color} hover:${result[w]?.[g]?.[r] === 1 ? gradeSettings[g].achieveColor : gradeSettings[g].color}`}
                       >
                         {r}
                       </Button>
