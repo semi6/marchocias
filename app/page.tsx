@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, MouseEvent, TouchEvent } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   Card,
@@ -9,21 +9,13 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Bars3Icon } from '@heroicons/react/24/solid'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { isMobile } from "react-device-detect"
+import Menu from "./menu"
 
 export default function Home() {
   type ResultObject = { [key: string]: { [key: string]: { [key: string]: number } | null } | null };
   const [result, setResult] = useState<ResultObject>({});
   const [selectedWall, setSelectedWall] = useState('all');
-
-  const basePath = process.env.NODE_ENV === 'production' ? '/marchocias' : ''
 
   const gradeSettings: any = {
     g8: { achieveColor: 'bg-purple-100', color: 'bg-purple-600' },
@@ -119,18 +111,7 @@ export default function Home() {
             <TabsTrigger value="w140" onClick={() => changeWallSelect("w140")}>140°</TabsTrigger>
             <TabsTrigger value="w170" onClick={() => changeWallSelect("w170")}>170°</TabsTrigger>
           </TabsList>
-          <div className="ml-auto my-0 my-auto">
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Bars3Icon className="size-7"/>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem><a href={`${basePath}/about`}>About</a></DropdownMenuItem>
-                <DropdownMenuItem><a href={`${basePath}/copy`}>Copy</a></DropdownMenuItem>
-                <DropdownMenuItem><a href={`${basePath}/reset`}>Reset</a></DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+          <Menu />
         </div>
         <TabsContent value={selectedWall}>
           {Object.keys(routeSettings).map((w, i) => (
