@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Button } from "@/components/ui/button"
-import { isMobile } from "react-device-detect"
+import React, { useEffect, useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { isMobile } from 'react-device-detect'
+import { openDB } from 'idb'
 
 interface RouteListProps {
-  wall: string;
-  grade: string;
-  route: string;
-  defaultValue: boolean;
+  wall: string
+  grade: string
+  route: string
+  defaultValue: boolean
 }
 
-type ResultObject = { [key: string]: { [key: string]: { [key: string]: number } | null } | null };
+type ResultObject = { [key: string]: { [key: string]: { [key: string]: number } | null } | null }
+
+const DB_NAME = 'RouteDB'
+const STORE_NAME = 'route-data'
 
 const RouteList: React.FC<RouteListProps> = ({ wall, grade, route, defaultValue }) => {
   const [value, setValue] = useState<boolean>(defaultValue)
@@ -32,10 +36,25 @@ const RouteList: React.FC<RouteListProps> = ({ wall, grade, route, defaultValue 
     setValue(defaultValue)
   }, [defaultValue])
 
+  useEffect(() => {
+    const initDB = async () => {
+      const db = await openDB(DB_NAME, 1, {
+        upgrade(db) {
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME)
+          }
+        },
+      })
+      return db
+    }
+
+    initDB()
+  }, [])
+
   const handleTouchStart = (e: React.TouchEvent<HTMLButtonElement>) => {
     setStartY(e.touches[0].pageY)
     setIsScroll(false)
-  };
+  }
 
   const handleTouchMove = (e: React.TouchEvent<HTMLButtonElement>) => {
     const deltaY = Math.abs(startY - e.touches[0].pageY)
@@ -44,17 +63,17 @@ const RouteList: React.FC<RouteListProps> = ({ wall, grade, route, defaultValue 
     }
   }
 
-  const toggleCompleted = (tmpValue: boolean) => {
+  const toggleCompleted = async (tmpValue: boolean) => {
     if (!isScroll) {
-      const resultDataJson = localStorage.getItem('result-data')
-      const resultData: ResultObject = !!resultDataJson ? JSON.parse(resultDataJson) : {}
+      const db = await openDB(DB_NAME, 1)
+      const resultData: ResultObject = (await db.get(STORE_NAME, 'result-data')) || {}
 
-      resultData[wall] = resultData[wall] ?? {}
-      resultData[wall]![grade] = resultData[wall]![grade] ?? {}
-      resultData[wall]![grade]![route] = tmpValue ? 1 : 0
+      resultData[wall] = resultData[wall] ?? {};
+      resultData[wall]![grade] = resultData[wall]![grade] ?? {};
+      resultData[wall]![grade]![route] = tmpValue ? 1 : 0;
 
       setValue(tmpValue)
-      localStorage.setItem('result-data', JSON.stringify(resultData))
+      await db.put(STORE_NAME, resultData, 'result-data')
     }
   }
 

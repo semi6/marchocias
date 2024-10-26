@@ -6,8 +6,12 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import RouteButton from "./route_button"
+import { openDB } from 'idb'
 
 type ResultObject = { [key: string]: { [key: string]: { [key: string]: number } | null } | null };
+
+const DB_NAME = 'RouteDB'
+const STORE_NAME = 'route-data'
 
 interface RouteListProps {
   selectedWall: string;
@@ -59,12 +63,22 @@ const RouteList: React.FC<RouteListProps> = ({ selectedWall }) => {
   }
 
   useEffect(() => {
-    const resultData = localStorage.getItem('result-data');
-    if (resultData) {
-      const storedData = JSON.parse(resultData)
-      setResult(storedData);
+    const fetchData = async () => {
+      const db = await openDB(DB_NAME, 1, {
+        upgrade(db) {
+          if (!db.objectStoreNames.contains(STORE_NAME)) {
+            db.createObjectStore(STORE_NAME);
+          }
+        },
+      })
+      const resultData = await db.get(STORE_NAME, 'result-data');
+      if (resultData) {
+        setResult(resultData);
+      }
     }
-  }, []);
+
+    fetchData()
+  }, [])
 
   return (
     <>
@@ -85,7 +99,7 @@ const RouteList: React.FC<RouteListProps> = ({ selectedWall }) => {
         ) : null
       ))}
     </>
-  );
+  )
 }
 
 export default RouteList;

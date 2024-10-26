@@ -1,12 +1,16 @@
-"use client";
+'use client'
 
-import { Suspense, useEffect } from 'react';
-import { permanentRedirect, useSearchParams } from "next/navigation";
-import { Card, CardDescription, CardFooter, CardHeader } from '@/components/ui/card';
+import { Suspense, useEffect } from 'react'
+import { permanentRedirect, useSearchParams } from 'next/navigation'
+import { Card, CardDescription, CardFooter, CardHeader } from '@/components/ui/card'
+import { openDB } from 'idb'
+
+const DB_NAME = 'RouteDB'
+const STORE_NAME = 'route-data'
 
 const ImportPage = () => {
-  type ResultObject = { [key: string]: { [key: string]: { [key: string]: number } } };
-  const searchParams = useSearchParams();
+  type ResultObject = { [key: string]: { [key: string]: { [key: string]: number } } }
+  const searchParams = useSearchParams()
 
   const basePath = process.env.NODE_ENV === 'production' ? '/marchocias' : ''
 
@@ -30,38 +34,43 @@ const ImportPage = () => {
       m: 'g0',
     }
 
-    const resultData = localStorage.getItem('result-data');
-    let parsedResultData: ResultObject = {}
 
-    if (!resultData || !confirm('保存されたデータがあります。上書きしますか？')) {
-      const resultStrings = searchParams.get('r')
-      if (resultStrings) {
-        let w
-        let g
-        for (let i = 0; i < resultStrings.length; i++) {
-          if (queryWallList[resultStrings[i]]) {
-            w = queryWallList[resultStrings[i]]
-          } else if (queryGradeList[resultStrings[i]]) {
-            g = queryGradeList[resultStrings[i]]
-          } else {
-            parsedResultData[w] ||= {}
-            parsedResultData[w][g] ||= {}
-            parsedResultData[w][g][resultStrings[i]] = 1
+    const importData = async () => {
+      const db = await openDB(DB_NAME, 1)
+      let parsedResultData: ResultObject = {}
+      const existingData = await db.get(STORE_NAME, 'result-data')
+
+      if (!existingData || !confirm('保存されたデータがあります。上書きしますか？')) {
+        const resultStrings = searchParams.get('r')
+        if (resultStrings) {
+          let w: string | undefined
+          let g: string | undefined
+          for (let i = 0; i < resultStrings.length; i++) {
+            if (queryWallList[resultStrings[i]]) {
+              w = queryWallList[resultStrings[i]]
+            } else if (queryGradeList[resultStrings[i]]) {
+              g = queryGradeList[resultStrings[i]]
+            } else if (w && g) {
+              parsedResultData[w] ||= {}
+              parsedResultData[w][g] ||= {}
+              parsedResultData[w][g][resultStrings[i]] = 1
+            }
           }
         }
+      } else {
+        parsedResultData = existingData
       }
-    } else {
-      parsedResultData = JSON.parse(resultData)
+
+      await db.put(STORE_NAME, parsedResultData, 'result-data')
+      permanentRedirect('/')
     }
 
-    localStorage.setItem('result-data', JSON.stringify(parsedResultData));
-
-    permanentRedirect('/')
-  }, [searchParams]);
+    importData();
+  }, [searchParams])
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-2">
-      <Card className="w-[370px]">
+    <main className='flex min-h-screen flex-col items-center justify-between p-2'>
+      <Card className='w-[370px]'>
         <CardHeader>
           <CardDescription className='text-center'>データを保存しています...</CardDescription>
         </CardHeader>
@@ -70,7 +79,7 @@ const ImportPage = () => {
         </CardFooter>
       </Card>
     </main>
-  );
+  )
 }
 
 export default function Import() {
@@ -78,5 +87,5 @@ export default function Import() {
     <Suspense>
       <ImportPage />
     </Suspense>
-  );
-};
+  )
+}

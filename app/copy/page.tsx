@@ -1,19 +1,23 @@
-"use client";
+'use client'
 
-import { QRCodeSVG } from 'qrcode.react';
-import { useEffect, useState } from 'react';
+import { QRCodeSVG } from 'qrcode.react'
+import { useEffect, useState } from 'react'
 import {
   Card,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
-} from "@/components/ui/card"
+} from '@/components/ui/card'
+import { openDB } from 'idb'
+
+const DB_NAME = 'RouteDB'
+const STORE_NAME = 'route-data'
 
 export default function Copy() {
-  type ResultObject = { [key: string]: { [key: string]: { [key: string]: number } } };
-  const [result, setResult] = useState<ResultObject>({});
-  const [resultArr, setresultArr] = useState<Array<string>>([]);
+  type ResultObject = { [key: string]: { [key: string]: { [key: string]: number } } }
+  const [result, setResult] = useState<ResultObject>({})
+  const [resultArr, _] = useState<Array<string>>([])
 
   const basePath = process.env.NODE_ENV === 'production' ? '/marchocias' : ''
 
@@ -34,12 +38,16 @@ export default function Copy() {
   }
 
   useEffect(() => {
-    const resultData = localStorage.getItem('result-data');
-    if (resultData) {
-      const storedData = JSON.parse(resultData)
-      setResult(storedData);
+    const fetchData = async () => {
+      const db = await openDB(DB_NAME, 1)
+      const resultData = await db.get(STORE_NAME, 'result-data')
+      if (resultData) {
+        setResult(resultData)
+      }
     }
-  }, []);
+
+    fetchData()
+  }, [])
 
   Object.keys(result).forEach(w => {
     resultArr.push(queryStringList[w])
@@ -51,11 +59,11 @@ export default function Copy() {
         }
       })
     })
-  });
+  })
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-2">
-      <Card className="w-[370px]">
+    <main className='flex min-h-screen flex-col items-center justify-between p-2'>
+      <Card className='w-[370px]'>
         <CardHeader>
           <CardDescription className='text-center'>QRコードで別の端末にコピーできます</CardDescription>
         </CardHeader>
@@ -69,5 +77,5 @@ export default function Copy() {
         </CardFooter>
       </Card>
     </main>
-  );
+  )
 }
