@@ -49,7 +49,7 @@ const RouteList: React.FC<RouteListProps> = ({ selectedWall }) => {
       g5: ['1', '2'],
       g4: ['1', '2', 'A', 'B'],
       g3: ['1', '2', 'A', 'B', 'C'],
-      g2: ['1', 'A', 'B', 'C', 'D'],
+      g2: ['1', '2', 'A', 'B', 'C', 'D'],
       g1: ['1', 'A', 'B', 'C', 'D'],
       g0: ['1', 'A', 'B', 'C', 'D'],
     },
