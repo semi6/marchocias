@@ -20,38 +20,39 @@ interface RouteListProps {
 const RouteList: React.FC<RouteListProps> = ({ selectedWall }) => {
   const [result, setResult] = useState<ResultObject>({})
 
+  // 配列だとシングルクォートとカンマがスマホで直接編集しにくいため文字列split
   const routeSettings: any = {
     w90: {
-      g5: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
-      g4: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
-      g3: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
-      g2: ['1', '2', '3', 'A', 'B', 'C', 'D'],
-      g1: ['1', 'A', 'B', 'C', 'D'],
-      g0: ['1', 'A', 'B', 'C'],
+      g5: '1234ABCD'.split(''),
+      g4: '1234ABCD'.split(''),
+      g3: '1234ABCD'.split(''),
+      g2: '123ABCD'.split(''),
+      g1: '1ABCD'.split(''),
+      g0: '1ABC'.split(''),
     },
     w115: {
-      g5: ['1', '2', '3', 'A', 'B'],
-      g4: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
-      g3: ['1', '2', '3', 'A', 'B', 'C', 'D'],
-      g2: ['1', '2', '3', 'A', 'B', 'C', 'D'],
-      g1: ['1', '2', '3', '4', 'A', 'B', 'C', 'D'],
-      g0: ['1', 'A', 'B', 'C', 'D'],
+      g5: '123AB'.split(''),
+      g4: '1234ABCD'.split(''),
+      g3: '123ABCD'.split(''),
+      g2: '123ABCD'.split(''),
+      g1: '1234ABCD'.split(''),
+      g0: '1ABCD'.split(''),
     },
     w140: {
-      g5: ['6', '7', '8'],
-      g4: ['6', '7', 'E', 'F'],
-      g3: ['6', '7', 'E', 'F', 'G'],
-      g2: ['6', '7', 'E', 'F', 'G'],
-      g1: ['6', '7', '8', 'E', 'F', 'G', 'H'],
-      g0: ['6', '7', 'E', 'F', 'G', 'H'],
+      g5: '678'.split(''),
+      g4: '67EF'.split(''),
+      g3: '67EFG'.split(''),
+      g2: '67EFG'.split(''),
+      g1: '678EFGH'.split(''),
+      g0: '67EFGH'.split(''),
     },
     w170: {
-      g5: ['1', '2'],
-      g4: ['1', '2', 'A', 'B'],
-      g3: ['1', '2', 'A', 'B', 'C'],
-      g2: ['1', '2', 'A', 'B', 'C', 'D'],
-      g1: ['1', 'A', 'B', 'C', 'D'],
-      g0: ['1', 'A', 'B', 'C', 'D'],
+      g5: '12'.split(''),
+      g4: '12AB'.split(''),
+      g3: '12ABC'.split(''),
+      g2: '12ABCD'.split(''),
+      g1: '1ABCD'.split(''),
+      g0: '1ABCD'.split(''),
     },
   }
 
