@@ -88,11 +88,11 @@ const RouteList: React.FC<RouteListProps> = ({ selectedWall }) => {
           <Card className="m-1 mb-3 py-2" key={i}>
             {selectedWall === 'all' ? (
               <CardHeader className="p-0 pl-3">
-                <CardTitle className="text-sm font-normal text-gray-500">{wallLabel[w]}</CardTitle>
+                <CardTitle className="text-xs font-normal text-gray-500">{wallLabel[w]}</CardTitle>
               </CardHeader>
             ) : null}
             {Object.keys(routeSettings[w]).map((g, j) => (
-              <CardContent className="p-1 flex flex-wrap gap-y-1.5" key={`${i}-${j}`}>
+              <CardContent className="py-1 px-1.5 flex flex-wrap gap-y-1.5 space-x-1" key={`${i}-${j}`}>
                 {routeSettings[w][g].map((r: string, k: number) => (
                   <RouteButton key={`${i}-${j}-${k}`} wall={w} grade={g} route={r} defaultValue={result[w]?.[g]?.[r] === 1} />
                 ))}

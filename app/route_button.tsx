@@ -83,7 +83,7 @@ const RouteList: React.FC<RouteListProps> = ({ wall, grade, route, defaultValue 
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={() => toggleCompleted(!value)}
-      className={`ml-1 w-10 h-10 ${value ? gradeSettings[grade].achieveColor : gradeSettings[grade].color} hover:${value ? gradeSettings[grade].achieveColor : gradeSettings[grade].color}`}
+      className={`text-xs w-10 h-10 ${value ? gradeSettings[grade].achieveColor : gradeSettings[grade].color} hover:${value ? gradeSettings[grade].achieveColor : gradeSettings[grade].color}`}
     >
       {route}
     </Button>
