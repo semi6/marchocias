@@ -23,7 +23,7 @@ const RouteList: React.FC<RouteListProps> = ({ selectedWall }) => {
   // 配列だとシングルクォートとカンマがスマホで直接編集しにくいため文字列split
   const routeSettings: any = {
     w90: {
-      g5: '123ABC'.split(''),
+      g5: '123ABCD'.split(''),
       g4: '123ABCD'.split(''),
       g3: '1234ABCD'.split(''),
       g2: '123ABCD'.split(''),
@@ -31,7 +31,7 @@ const RouteList: React.FC<RouteListProps> = ({ selectedWall }) => {
       g0: '12ABCD'.split(''),
     },
     w115: {
-      g5: '1234AB'.split(''),
+      g5: '1234ABC'.split(''),
       g4: '1234ABCD'.split(''),
       g3: '1234ABCD'.split(''),
       g2: '123ABCD'.split(''),
@@ -40,7 +40,7 @@ const RouteList: React.FC<RouteListProps> = ({ selectedWall }) => {
     },
     w140: {
       g5: '67'.split(''),
-      g4: '67E'.split(''),
+      g4: '67EF'.split(''),
       g3: '6EFG'.split(''),
       g2: '67EFG'.split(''),
       g1: '6EFGH'.split(''),
