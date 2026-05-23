@@ -32,7 +32,7 @@ const RouteList: React.FC<RouteListProps> = ({ selectedWall }) => {
     },
     w115: {
       g5: '1234ABC'.split(''),
-      g4: '1234ABCD'.split(''),
+      g4: '12345ABC'.split(''),
       g3: '1234ABCD'.split(''),
       g2: '123ABCD'.split(''),
       g1: '12ABCD'.split(''),
